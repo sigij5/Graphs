@@ -26,15 +26,15 @@ def earliest_ancestor(ancestors, starting_node):
     q = Queue()
     q.enqueue(starting_node)
     level = {}
-    longest = -1
+    longest = (-1, 1)
     while q.size() > 0:
         curr = q.dequeue()
         if curr not in dict:
-            # longest = curr
-            continue
-            # return longest
+            if level[curr] > longest[1]:
+                longest = (curr, level[curr])
+            elif level[curr] == longest[1] and curr < longest[0]:
+                longest = (curr, level[curr])
         else:
-        
             if curr not in level:
                 level[curr] = 1
             for ancestor in dict[curr]:
@@ -42,28 +42,8 @@ def earliest_ancestor(ancestors, starting_node):
                 q.enqueue(ancestor)
 
             print(level)
-    # print(longest)
-    longest = max(level, key = lambda x:level[x])
-    return longest
+    # longest = max(level, key = lambda x:level[x])
+    print(longest)
+    return longest[0]
 
-    # while q.size() > 0:
-    #     v = q.dequeue()
-    #     last_v = v[-1]
-
-    #     if last_v not in dict:
-    #         paths.append(v)
-    #         # return v
-    #     if get_parents(dict, last_v) == -1:
-    #         return -1
-    #     else:
-    #         for p in get_parents(dict, last_v):
-    #             new_path = v + [p]
-    #             q.enqueue(new_path)
-    #             print(paths)
-
-
-
-    # print(get_parents(dict, 1))
-    # print(ancestors_path)
-    # print(paths)
             
